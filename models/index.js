@@ -25,6 +25,11 @@ Employee.hasOne(Employee, {
   onDelete: 'SET NULL',
 });
 
+Employee.belongsTo(Employee, {
+  foreignKey: 'manager_id',
+  as: 'Manager',
+})
+
 module.exports = {
   Department,
   Role,
