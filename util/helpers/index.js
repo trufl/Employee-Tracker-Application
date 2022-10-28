@@ -29,7 +29,7 @@ const crud = async (choice) => {
       
       break;
     case "Update employee manager":
-      
+      await read(4, 4);
       break;
     case "View employees by manager":
       

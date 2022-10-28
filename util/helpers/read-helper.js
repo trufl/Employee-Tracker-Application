@@ -12,6 +12,18 @@ const read = async(model, option) => {
         case 3:
             await empRead(model);
             break;
+        case 4: 
+            const managerName = await viewPrompt(1);
+            await empByManager(managerName);
+            break;
+        case 5:
+            const depName = await viewPrompt(2);
+            await empByDepartment(depName);
+            break;
+        case 6:
+            const departmentName = await viewPrompt(2);
+            await depBudget(departmentName);
+            break;
         default:
             console.log('Something went wrong');
             break;
@@ -20,7 +32,7 @@ const read = async(model, option) => {
 
 const depRead = async (model) => {
 
-    const departments = await model.findAll({ raw: true});
+    const departments = await model.findAll({ raw: true });
 
     console.log('=================================================');
     console.table(departments);
@@ -81,6 +93,72 @@ const empRead = async (model) => {
     console.log('=================================================================================================================================================================');
     console.table(employees);
     console.log('=================================================================================================================================================================');
+}
+
+const empByManager = async (managerName) => {
+    const { id: manId } = await Employee.findOne({
+        raw: true,
+        where: {
+            firstName: managerName,
+        }
+    });
+
+    const employees = await Employee.findAll({ 
+        raw: true,
+        where: {
+            manager_id: manId,
+        }, 
+        include : {
+            model: Employee,
+            as: 'Manager',
+        },
+    });
+
+    console.table(employees);
+}
+
+const empByDepartment = async (depName) => {
+    const { id: depId } = await Department.findOne({
+        raw: true,
+        where: {
+            name: depName,
+        }
+    });
+
+    const employees = await Employee.findAll({ 
+        raw: true,
+        where: {
+            department_id: depId,
+        }, 
+        include : {
+            model: Employee,
+            as: 'Manager',
+        },
+    });
+
+    console.table(employees);
+}
+
+const depBudget = async (depName) => {
+    const { id: depId } = await Department.findOne({
+        raw: true,
+        where: {
+            name: depName,
+        }
+    });
+
+    const employees = await Employee.findAll({ 
+        raw: true,
+        where: {
+            department_id: depId,
+        }, 
+        include : {
+            model: Employee,
+            as: 'Manager',
+        },
+    });
+
+    console.table(employees);
 }
 
 module.exports = read;
