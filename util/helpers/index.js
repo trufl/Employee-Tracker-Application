@@ -8,13 +8,13 @@ const crud = async (choice) => {
 
   switch(choice) {
     case "View all departments":
-      await read(Department,1);
+      await read(1);
       break;
     case "View all roles":
-      await read(Role,2);
+      await read(2);
       break;
     case "View all employees":
-      await read(Employee,3);
+      await read(3);
       break;
     case "Add a department":
       
@@ -29,13 +29,16 @@ const crud = async (choice) => {
       
       break;
     case "Update employee manager":
-      await read(4, 4);
+
       break;
     case "View employees by manager":
-      
+      await read(4);
       break;
     case "View employees by department":
-      
+      await read(5);
+      break;
+    case "View total budget by ddepartment":
+      await read(6);
       break;
     case "Delete department":
       

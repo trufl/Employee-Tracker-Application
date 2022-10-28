@@ -1,16 +1,16 @@
 const { Department, Role, Employee } = require('../../models');
 
-const read = async(model, option) => {
+const read = async(option) => {
 
     switch(option) {
         case 1:
-            await depRead(model);
+            await depRead();
             break;
         case 2:
-            await roleRead(model);
+            await roleRead();
             break;
         case 3:
-            await empRead(model);
+            await empRead();
             break;
         case 4: 
             const managerName = await viewPrompt(1);
@@ -30,17 +30,17 @@ const read = async(model, option) => {
     }
 }
 
-const depRead = async (model) => {
+const depRead = async () => {
 
-    const departments = await model.findAll({ raw: true });
+    const departments = await Department.findAll({ raw: true });
 
     console.log('=================================================');
     console.table(departments);
     console.log('=================================================');
 }
 
-const roleRead = async (model) => {
-    const roles = await model.findAll({
+const roleRead = async () => {
+    const roles = await Role.findAll({
         attributes: {
             exclude: ['department_id'],
         },
@@ -56,8 +56,8 @@ const roleRead = async (model) => {
     console.log('===================================================================================');
 }
 
-const empRead = async (model) => {
-    const employees = await model.findAll({
+const empRead = async () => {
+    const employees = await Employee.findAll({
         raw: true,
         required: true,
         include: [
