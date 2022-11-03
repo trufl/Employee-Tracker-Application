@@ -19,12 +19,12 @@ const read = async(option) => {
             await empByManager(managerName);
             break;
         case 5:
-            const depName = await viewPrompt(2);
-            await empByDepartment(depName);
+            const depId = await viewPrompt(2);
+            await empByDepartment(depId);
             break;
         case 6:
-            const departmentName = await viewPrompt(2);
-            await depBudget(departmentName);
+            const departmentId = await viewPrompt(2);
+            await depBudget(departmentId);
             break;
         default:
             console.log('Something went wrong');
@@ -187,32 +187,23 @@ const empByDepartment = async (depId) => {
     console.log('==============================================================================================================================================');
 }
 
-const depBudget = async (depName) => {
-    const { id: depId } = await Department.findOne({
-        raw: true,
+const depBudget = async (depId) => {
+    const roleSalary = await Role.sum('salary', {
         where: {
-            name: depName,
+            department_id: depId,
         }
     });
 
-    const employees = await Employee.findAll({ 
+    const { name } = await Department.findOne({ 
         raw: true,
-        where: {
-            department_id: depId,
-        },
-        include: [
-            {
-                model: Role,
-                required: true,
-            }, 
-            {
-                model: Employee,
-                as: 'Manager',
-            },
-        ]
+        where: { id: depId},
     });
 
-    console.table(employees);
+    
+    console.log('==============================================');
+    console.log(`_______Total Salary For ${name}_______`);
+    console.log("               $" + roleSalary);
+    console.log('==============================================');
 }
 
 module.exports = read;
