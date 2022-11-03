@@ -8,6 +8,7 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD, {
       host: 'localhost',
       dialect: 'mysql',
+      logging: false,
     });
 
 module.exports = sequelize;

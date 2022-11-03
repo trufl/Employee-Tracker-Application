@@ -37,7 +37,7 @@ const crud = async (choice) => {
     case "View employees by department":
       await read(5);
       break;
-    case "View total budget by ddepartment":
+    case "View total budget by department":
       await read(6);
       break;
     case "Delete department":
