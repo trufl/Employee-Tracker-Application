@@ -1,4 +1,3 @@
-const { Department, Role, Employee } = require('../../models');
 const create = require('./create-helper');
 const read = require('./read-helper');
 const update = require('./update-helper');
@@ -26,10 +25,10 @@ const crud = async (choice) => {
       
       break;
     case "Update employee role":
-      
+      await update(false);
       break;
     case "Update employee manager":
-
+      await update(true);
       break;
     case "View employees by manager":
       await read(4);

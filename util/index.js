@@ -10,8 +10,6 @@ const init = async () => {
 
         await crud(choice);
     }
-
-    console.log("finished");
 }
 
 module.exports = init;

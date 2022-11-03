@@ -1,18 +1,19 @@
 const inquirer = require('inquirer');
 const { Department, Employee } = require('../../models');
+const { Op } = require('sequelize');
 
-const viewPrompt = async (choice) => {
+const viewPrompt = async (choice, bool) => {
 
     switch(choice) {
         case 1:
-            const managerName = await managerPrompt();
-            return managerName;
+            const managerId = await managerPrompt();
+            return managerId;
         case 2:
-            const depName = await departmentPrompt();
-            return depName;
+            const depId = await departmentPrompt(bool);
+            return depId;
         case 3:
-            const employeeName = await employeePrompt();
-            return employeeName;
+            const employeeId = await employeePrompt(bool);
+            return employeeId;
         default:
             console.log('Something went wrong');
             break;
@@ -51,7 +52,15 @@ const managerPrompt = async () => {
     }
 }
 
-const departmentPrompt = async () => {
+const departmentPrompt = async (bool) => {
+    let str;
+
+    if(bool) {
+        str = 'employees'
+    } else {
+        str = 'budget'
+    }
+
     const departmentsData = await Department.findAll({
         raw: true,
     });
@@ -69,7 +78,7 @@ const departmentPrompt = async () => {
         const { departmentId } = await depQ({
             type: 'list',
             name: 'departmentId',
-            message: 'Which department\'s employees would you like to view?',
+            message: `Which department\'s ${str} would you like to view?`,
             choices: departmentNames,
             loop: true,
         })
@@ -80,8 +89,33 @@ const departmentPrompt = async () => {
     }
 }
 
-const employeePrompt = async () => {
+const employeePrompt = async (manUpdate) => {
+    const employeesData = await Employee.findAll({
+        raw: true,
+    });
 
+    const employeeNames = employeesData.map((employee) => {
+        return {
+            name: `${employee.firstName} ${employee.lastName}`,
+            value: employee.id,
+        }
+    });
+
+    try {
+        const empQ = inquirer.createPromptModule();
+
+        const { employeeId } = await empQ({
+            type: 'list',
+            name: 'employeeId',
+            message: 'Which employee would you like to update?',
+            choices: employeeNames,
+            loop: true,
+        })
+
+        return employeeId;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 module.exports = viewPrompt;

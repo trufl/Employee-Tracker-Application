@@ -1,6 +1,6 @@
 const { Department, Role, Employee } = require('../../models');
 const { viewPrompt } = require('../questions/index');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
 
 const read = async(option) => {
 
@@ -19,11 +19,11 @@ const read = async(option) => {
             await empByManager(managerName);
             break;
         case 5:
-            const depId = await viewPrompt(2);
+            const depId = await viewPrompt(2, true);
             await empByDepartment(depId);
             break;
         case 6:
-            const departmentId = await viewPrompt(2);
+            const departmentId = await viewPrompt(2, false);
             await depBudget(departmentId);
             break;
         default:
