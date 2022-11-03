@@ -52,6 +52,32 @@ const managerPrompt = async () => {
 }
 
 const departmentPrompt = async () => {
+    const departmentsData = await Department.findAll({
+        raw: true,
+    });
+
+    const departmentNames = departmentsData.map((department) => {
+        return {
+            name: department.name,
+            value: department.id,
+        }
+    });
+
+    try {
+        const depQ = inquirer.createPromptModule();
+
+        const { departmentId } = await depQ({
+            type: 'list',
+            name: 'departmentId',
+            message: 'Which department\'s employees would you like to view?',
+            choices: departmentNames,
+            loop: true,
+        })
+
+        return departmentId;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 const employeePrompt = async () => {

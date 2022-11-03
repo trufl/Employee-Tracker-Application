@@ -1,5 +1,6 @@
 const { Department, Role, Employee } = require('../../models');
 const { viewPrompt } = require('../questions/index');
+const { Op } = require('sequelize')
 
 const read = async(option) => {
 
@@ -97,13 +98,6 @@ const empRead = async () => {
 }
 
 const empByManager = async (managerId) => {
-    // const { id: manId } = await Employee.findOne({
-    //     raw: true,
-    //     where: {
-    //         id: managerId,
-    //     }
-    // });
-
     const employees = await Employee.findAll({ 
         raw: true,
         include: [
@@ -144,11 +138,24 @@ const empByManager = async (managerId) => {
 }
 
 const empByDepartment = async (depId) => {
+    const roles = await Role.findAll({
+        raw: true,
+        where: {
+            department_id: depId,
+        }
+    });
+
+
+    const roleIds = roles.map((role) => {
+        return {
+            roleId: role.id
+        }
+    });
 
     const employees = await Employee.findAll({ 
         raw: true,
         where: {
-            department_id: depId,
+            [Op.or]: roleIds,
         }, 
         include: [
             {
@@ -162,9 +169,22 @@ const empByDepartment = async (depId) => {
         ]
     });
 
-    console.log('===========================================================================================================================================================');
+    employees.forEach((employee) => {
+        delete employee.role_id;
+        delete employee.manager_id;
+        delete employee['role.id'];
+        delete employee['role.department_id'];
+        delete employee['role.department.id'];
+        delete employee['Manager.id'];
+        delete employee['Manager.roleId'];
+        delete employee['Manager.managerId'];
+        delete employee['Manager.role_id'];
+        delete employee['Manager.manager_id'];
+    });
+
+    console.log('==============================================================================================================================================');
     console.table(employees);
-    console.log('===========================================================================================================================================================');
+    console.log('==============================================================================================================================================');
 }
 
 const depBudget = async (depName) => {
