@@ -2,11 +2,9 @@
 
 ## Description
 
-A JavaScript implementation of a custom card game.  Card battle is both a fun solitaire and multiplayer game since you can play against the A.I.(novice).  The current version of the game [can be played on GitHub Pages by clicking here](https://card-battle.herokuapp.com/).
-
-The goal of the game is eliminate your opponent by lowering their hitpoints to 0 first. All 10 cards have the same option to attack, defend, or skip.
-
-Click a card to call it to action.  The game checks the attributes of the selected card: attack and defend.  If the selected card attacks, the opponent will have their hitpoints deducted by the attack subtracted by the defending cards defense.  You can regain hitpoints by selecting a card and using defense. The first player to 0 hitpoints loses. 
+The Employee Tracker CLI application is designed to keep track of a company's departments, roles, managers, and employees. With this app you will be able
+to view, update, and delete company departments, roles, managers, and employees. It uses sequelize and mysql to query to your database behind the scenes
+to help you keep track of and store your valuable information.
 
 ## Table of Contents 
 
