@@ -20,10 +20,12 @@ Click a card to call it to action.  The game checks the attributes of the select
 Installation instructions: `npm i`   
 Log in to MySQL and in MySQL CLI: run `SOURCE db/schema.sql`  
 If you want the starter data, log out of MySQL and in the CLI: run `npm run seed`  
-Convert the .env.EXAMPLE to a regular .env file in the root directory with three variables with your respective credentials: (DB_NAME is already defined for you for this app) `DB_NAME='database name'` `DB_USER='user name'` `DB_PASSWORD='SQL password'`  
+Convert the .env.EXAMPLE to a regular .env file in the root directory with 
+three variables with your respective credentials: (DB_NAME is already defined for you for this app) 
+`DB_NAME='database name'` `DB_USER='user name'` `DB_PASSWORD='SQL password'`  
 
 ## Usage
-After the installation structions have been complated you can start the application by running `npm start`. If you seeded the database you can start viewing 
+After the installation instructions have been completed you can start the application by running `npm start`. If you seeded the database you can start viewing 
 departments, roles, and employees. Otherwise, you can start adding all the info you want and update/delete data as needed.
 
 What the application should look like when started:
