@@ -21,7 +21,8 @@ Installation instructions: `npm i`
 Log in to MySQL and in MySQL CLI: run `SOURCE db/schema.sql`  
 If you want the starter data, log out of MySQL and in the CLI: run `npm run seed`  
 Convert the .env.EXAMPLE to a regular .env file in the root directory with 
-three variables with your respective credentials: (DB_NAME is already defined for you for this app) 
+three variables with your respective credentials:
+(DB_NAME is already defined for you for in the example file)
 `DB_NAME='database name'` `DB_USER='user name'` `DB_PASSWORD='SQL password'`  
 
 ## Usage
