@@ -16,13 +16,13 @@ const crud = async (choice) => {
       await read(3);
       break;
     case "Add a department":
-      
+      await create(1);
       break;
     case "Add a role":
-      
+      await create(2);
       break;
     case "Add an employee":
-      
+      await create(3);
       break;
     case "Update employee role":
       await update(false);
@@ -40,13 +40,13 @@ const crud = async (choice) => {
       await read(6);
       break;
     case "Delete department":
-      
+      await deleteHelp(1);
       break;
     case "Delete role":
-      
+      await deleteHelp(2);
       break;
     case "Delete employee":
-      
+      await deleteHelp(3);
       break;
     case "Exit":
       console.log('\nGoodbye!')

@@ -22,8 +22,7 @@ const updatePrompt = async (bool) => {
                 value: manager.id,
             }
         });
-
-
+        
         arr.push({
             name: 'No manager',
             value: null,
